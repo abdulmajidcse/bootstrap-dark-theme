@@ -9,6 +9,7 @@
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
     <style>
+        /* dark theme style */
         html.dark .dark\:bg-dark {
             background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
         }
@@ -37,8 +38,8 @@
         crossorigin="anonymous"></script>
 
     <script>
+        // set theme
         function setTheme() {
-            // On page load or when changing themes, best to add inline in `head` to avoid FOUC
             if (localStorage.theme === 'dark' || (localStorage.theme == 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add('dark');
             } else {
@@ -46,11 +47,13 @@
             }
         }
 
+        // when page load
         setTheme();
 
+        // theme changing select tag
         let theme = document.querySelector('#theme');
 
-        // selected true if value is present
+        // selected theme opion which is active
         [...theme.children].forEach(option => {
             if (option.value === localStorage.theme) {
                 option.setAttribute('selected', 'true');
@@ -61,6 +64,7 @@
 
         });
 
+        // listen and update theme
         theme.addEventListener('change', function (e) {
             localStorage.setItem('theme', e.target.value);
             setTheme();
