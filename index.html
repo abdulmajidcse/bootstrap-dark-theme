@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <style>
+        html.dark .dark\:bg-dark {
+            background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+        }
+
+        html.dark .dark\:text-warning {
+            color: rgba(var(--bs-warning-rgb), var(--bs-text-opacity)) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h3>Bootstrap Dark Theme</h3>
+        <select class="form-select my-3" id="theme" name="theme">
+            <option value="system">System</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+        </select>
+        <h1 class="bg-primary bg-opacity-50 p-3 text-center text-light text-opacity-50 dark:bg-dark dark:text-warning">
+            Hello, world!</h1>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+
+    <script>
+        function setTheme() {
+            // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+            if (localStorage.theme === 'dark' || (localStorage.theme == 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        setTheme();
+
+        let theme = document.querySelector('#theme');
+
+        // selected true if value is present
+        [...theme.children].forEach(option => {
+            if (option.value === localStorage.theme) {
+                option.setAttribute('selected', 'true');
+            } else if (localStorage.theme !== 'system' && localStorage.theme !== 'dark' && option.value === 'light') {
+                option.setAttribute('selected', 'true');
+                localStorage.setItem('theme', 'light');
+            }
+
+        });
+
+        theme.addEventListener('change', function (e) {
+            localStorage.setItem('theme', e.target.value);
+            setTheme();
+        });
+    </script>
+</body>
+
+</html>
