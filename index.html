@@ -25,9 +25,9 @@
     <div class="container">
         <h3>Bootstrap Dark Theme</h3>
         <select class="form-select my-3" id="theme" name="theme">
-            <option value="system">System</option>
             <option value="light">Light</option>
             <option value="dark">Dark</option>
+            <option value="system">System</option>
         </select>
         <h1 class="bg-primary bg-opacity-50 p-3 text-center text-light text-opacity-50 dark:bg-dark dark:text-warning">
             Hello, world!</h1>
@@ -54,19 +54,13 @@
         let theme = document.querySelector('#theme');
 
         // selected theme opion which is active
-        [...theme.children].forEach(option => {
-            if (option.value === localStorage.theme) {
-                option.setAttribute('selected', 'true');
-            } else if (localStorage.theme !== 'system' && localStorage.theme !== 'dark' && option.value === 'light') {
-                option.setAttribute('selected', 'true');
-                localStorage.setItem('theme', 'light');
-            }
-
-        });
+        [...theme.children].forEach(option => option.value === localStorage.theme && option.setAttribute('selected', 'true'));
 
         // listen and update theme
         theme.addEventListener('change', function (e) {
+            // set theme value in localStorage
             localStorage.setItem('theme', e.target.value);
+            // update theme
             setTheme();
         });
     </script>
